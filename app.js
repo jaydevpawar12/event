@@ -22,6 +22,7 @@ import contactRoutes from "./routes/contactRoutes.js"
 import adminRoute from "./routes/adminRoute.js"
 import authRoute from "./routes/authRoute.js"
 import cmsRoute from "./routes/cmsRoute.js"
+// __dirname = path.resolve()
 import { adminProtectedRoute, protectedRoute } from "./middlewares/privateRoute.js"
 
 
@@ -37,6 +38,8 @@ app.use(rateLimiter({
     windowMs: 15 * 60 * 1000,  // Limit 100 Request Per 15 Minute
     max: 100000
 }))
+
+app.use(express.static(path.join(__dirname, "dist", "index.html")))
 
 app.use(express.static("uploads"))
 app.use(cors({
@@ -55,14 +58,15 @@ app.use("/api/admin", adminProtectedRoute, adminRoute)
 app.use("/api/auth", authRoute)
 app.use("/api/cms", cmsRoute)
 
-app.use((req, res) => {  // this line shoul be after Routes
-    notfier.notify({
-        title: "404 not found ",
-        message: `${req.path} ${req.method}`
-    })
-    res.status(404).json({
-        error: `Resource not found @ ${req.path} ${req.method}  `
-    })
+app.use("*", (req, res) => {  // this line shoul be after Routes
+    res.sendFile(path.join(__dirname, "dist", "index.html"))
+    // notfier.notify({
+    //     title: "404 not found ",
+    //     message: `${req.path} ${req.method}`
+    // })
+    // res.status(404).json({
+    //     error: `Resource not found @ ${req.path} ${req.method}  `
+    // })
 })
 
 app.use((err, req, res, next) => {    // this line should be at the end
