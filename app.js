@@ -34,12 +34,12 @@ app.use(express.json())
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
 app.use(morgan('combined', { stream: accessLogStream }))
 
-app.use(rateLimiter({
-    windowMs: 15 * 60 * 1000,  // Limit 100 Request Per 15 Minute
-    max: 100000,
-    standardHeaders: "draft-7",
-    legacyHeaders: false
-}))
+// app.use(rateLimiter({
+//     windowMs: 15 * 60 * 1000,  // Limit 100 Request Per 15 Minute
+//     max: 100000,
+//     standardHeaders: "draft-7",
+//     legacyHeaders: false
+// }))
 
 // app.use(express.static(path.join(__dirname, "dist", "index.html")))
 
