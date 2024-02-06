@@ -1,5 +1,10 @@
 {
   "name": "server",
+  "engines": {
+    "node": "21.6.1",
+    "npm":"10.2.4"
+
+  },
   "version": "1.0.0",
   "description": "",
   "type": "module",
