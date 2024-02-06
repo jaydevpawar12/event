@@ -39,7 +39,7 @@ app.use(rateLimiter({
     max: 100000
 }))
 
-app.use(express.static(path.join(__dirname, "dist", "index.html")))
+// app.use(express.static(path.join(__dirname, "dist", "index.html")))
 
 app.use(express.static("uploads"))
 app.use(cors({
